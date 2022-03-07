@@ -5,13 +5,17 @@ const GlobalStyle = createGlobalStyle`
         font-family: Montserrat, sans-serif;
         -webkit-font-smoothing: antialiased;
         -moz-osx-font-smoothing: grayscale;
-        text-align: center;
         color: #2c3e50;
-        box-sizing: border-box;
+
     }
     *{
-        padding: 0;
-        margin: 0;
+        box-sizing: border-box;
+    }
+    #root{
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
     }
 `
 
