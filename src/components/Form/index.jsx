@@ -6,11 +6,11 @@ import Input from '../Input'
 
 const StyledForm = styled.form``
 
-function Form() {
+function Form({ setOpen }) {
     const employee = useSelector(selectEmployee)
     const handleSubmit = (e) => {
         e.preventDefault()
-        console.log(employee)
+        setOpen(true)
     }
     return (
         <form>
