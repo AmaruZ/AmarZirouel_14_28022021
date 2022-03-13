@@ -7,7 +7,9 @@ const initialState = {
     startDate: '',
     street: '',
     city: '',
+    state: '',
     zipCode: '',
+    departement: '',
 }
 
 const { actions, reducer } = createSlice({
@@ -22,6 +24,7 @@ const { actions, reducer } = createSlice({
                 draft[action.payload.field] = action.payload.value
             },
         },
+        setValue: {},
     },
 })
 
