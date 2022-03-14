@@ -28,7 +28,6 @@ const ListItem = styled.li`
 `
 
 function Dropdown({ label, field, data }) {
-    console.log('render')
     const [isOpen, setOpen] = useState(false)
     const dispatch = useDispatch()
     const employee = useSelector(selectEmployee)

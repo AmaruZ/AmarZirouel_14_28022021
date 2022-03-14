@@ -1,29 +1,35 @@
 import React from 'react'
-import { useSelector } from 'react-redux'
+import { useDispatch, useSelector } from 'react-redux'
 import styled from 'styled-components'
+import { departements } from '../../utils/departements'
 import { selectEmployee } from '../../utils/selectors'
+import { states } from '../../utils/states'
+import Dropdown from '../Dropdown'
 import Input from '../Input'
+import * as EmployeeListActions from '../../features/employeelist'
 
 const StyledForm = styled.form``
 
 function Form({ setOpen }) {
     const employee = useSelector(selectEmployee)
+    const dispatch = useDispatch()
     const handleSubmit = (e) => {
         e.preventDefault()
         setOpen(true)
+        dispatch(EmployeeListActions.addEmployee(employee))
     }
     return (
-        <form>
+        <StyledForm>
             <Input name={'first-name'} field={'firstName'}>
                 First Name
             </Input>
             <Input name={'last-name'} field={'lastName'}>
                 Last Name
             </Input>
-            <Input name={'date-of-birth'} field={'birthDate'}>
+            <Input name={'date-of-birth'} field={'birthDate'} type="date">
                 Date of Birth
             </Input>
-            <Input name={'start-date'} field={'startDate'}>
+            <Input name={'start-date'} field={'startDate'} type="date">
                 Start Date
             </Input>
             <fieldset>
@@ -34,14 +40,20 @@ function Form({ setOpen }) {
                 <Input name={'city'} field={'city'}>
                     City
                 </Input>
+                <Dropdown label={'State'} field={'state'} data={states} />
                 <Input name={'zip-code'} field={'zipCode'}>
                     Zip Code
                 </Input>
             </fieldset>
+            <Dropdown
+                label={'Departement'}
+                field={'departement'}
+                data={departements}
+            />
             <button type="submit" onClick={handleSubmit}>
                 Save
             </button>
-        </form>
+        </StyledForm>
     )
 }
 

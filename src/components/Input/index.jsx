@@ -9,7 +9,7 @@ const StyledLabel = styled.label`
     margin: 10px 0px;
 `
 
-function Input({ name, field, children }) {
+function Input({ name, field, children, type = 'text' }) {
     const dispatch = useDispatch()
     const handleChange = (e) => {
         dispatch(employeeAction.changeField(field, e.target.value))
@@ -17,7 +17,7 @@ function Input({ name, field, children }) {
     return (
         <div>
             <StyledLabel htmlFor={name}>{children}</StyledLabel>
-            <input type={'text'} id={name} onChange={handleChange} />
+            <input type={type} id={name} onChange={handleChange} />
         </div>
     )
 }
