@@ -38,6 +38,7 @@ function Filter() {
     }
     const handleChange = (e) => {
         dispatch(setFilter(filter(employees, e.target.value)))
+        dispatch(setStartIndex(0))
     }
     return (
         <FilterContainer>

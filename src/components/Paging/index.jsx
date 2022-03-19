@@ -60,7 +60,7 @@ function Paging() {
                         : startIndex + entries}{' '}
                     of {numberOfFilteredEmployees} entries{' '}
                     {numberOfEmployees !== numberOfFilteredEmployees &&
-                        `filtered from ${numberOfEmployees} total entries`}
+                        `(filtered from ${numberOfEmployees} total entries)`}
                 </p>
             </div>
             <div>

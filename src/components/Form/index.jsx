@@ -7,6 +7,7 @@ import { states } from '../../utils/states'
 import Dropdown from '../Dropdown'
 import Input from '../Input'
 import * as EmployeeListActions from '../../features/employeelist'
+import DatePicker from '../DatePicker'
 
 const StyledForm = styled.form``
 
@@ -26,12 +27,12 @@ function Form({ setOpen }) {
             <Input name={'last-name'} field={'lastName'}>
                 Last Name
             </Input>
-            <Input name={'date-of-birth'} field={'birthDate'} type="date">
+            <DatePicker name={'date-of-birth'} field={'birthDate'}>
                 Date of Birth
-            </Input>
-            <Input name={'start-date'} field={'startDate'} type="date">
+            </DatePicker>
+            <DatePicker name={'start-date'} field={'startDate'}>
                 Start Date
-            </Input>
+            </DatePicker>
             <fieldset>
                 <legend>Address</legend>
                 <Input name={'street'} field={'street'}>

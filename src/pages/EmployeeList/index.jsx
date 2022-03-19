@@ -1,5 +1,6 @@
 import React from 'react'
 import { useDispatch, useSelector } from 'react-redux'
+import { Link } from 'react-router-dom'
 import Filter from '../../components/Filter'
 import Paging from '../../components/Paging'
 import Table from '../../components/Table'
@@ -17,6 +18,7 @@ function EmployeeList() {
             <Filter />
             <Table />
             <Paging />
+            <Link to={'/'}>Home</Link>
         </main>
     )
 }

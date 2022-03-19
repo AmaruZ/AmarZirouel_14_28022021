@@ -6,12 +6,17 @@ import * as employeeAction from '../../features/employee'
 import { selectEmployee } from '../../utils/selectors'
 
 const DropdownContainer = styled.div``
+const StyledLabel = styled.label`
+    display: flex;
+    margin: 10px 0px;
+`
 const DropdownHeader = styled.div`
     position: relative;
     display: flex;
     justify-content: space-between;
     align-items: center;
     background: #f4f4f4;
+    cursor: pointer;
 `
 const DropdownListContainer = styled.div``
 const DropdownList = styled.ul`
@@ -43,7 +48,8 @@ function Dropdown({ label, field, data }) {
     }, [data, dispatch, field])
     return (
         <DropdownContainer>
-            <DropdownHeader onClick={toggle}>
+            <StyledLabel htmlFor={label}>{label}</StyledLabel>
+            <DropdownHeader name={label} onClick={toggle}>
                 {employee[field]}
                 <img src={chevron} alt="" />
             </DropdownHeader>
