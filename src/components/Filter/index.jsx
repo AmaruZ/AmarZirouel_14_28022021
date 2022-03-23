@@ -7,19 +7,29 @@ import styled from 'styled-components'
 const FilterContainer = styled.div`
     display: flex;
     justify-content: space-between;
+    margin-bottom: 10px;
 `
-
+const FilterInput = styled.input`
+    height: 20px;
+    margin-left: 10px;
+    padding-left: 10px;
+    font-size: 1.05em;
+    border-radius: 5px;
+    border: solid 1px lightgrey;
+    &:focus-visible {
+        outline: solid 2px #c9deff;
+    }
+`
 function Filter() {
     const dispatch = useDispatch()
     const employees = useSelector(selectEmployeeList).employees
-
     const options = [10, 25, 50, 100]
     const handleSelect = (e) => {
         dispatch(setEntries(parseInt(e.target.value)))
         dispatch(setStartIndex(0))
     }
-    const filter = (arr, string) => {
-        return arr.filter(
+    const filter = (array, string) => {
+        return array.filter(
             (el) =>
                 el.firstName.toLowerCase().indexOf(string.toLowerCase()) !==
                     -1 ||
@@ -54,7 +64,7 @@ function Filter() {
                 entries
             </div>
             <div>
-                Search <input onChange={(e) => handleChange(e)}></input>
+                Search <FilterInput onChange={(e) => handleChange(e)} />
             </div>
         </FilterContainer>
     )

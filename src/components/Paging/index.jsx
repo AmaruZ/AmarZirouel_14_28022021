@@ -8,11 +8,26 @@ const PagingContainer = styled.div`
     display: flex;
     justify-content: space-between;
 `
-const PagingButton = styled.button`
+const PagingNumbersButton = styled.button`
+    width: 23px;
+    height: 23px;
+    margin: 0 2px;
+    border-radius: 5px;
+    border: none;
+    cursor: pointer;
     ${(props) =>
-        props.$active === true ? 'background: red' : 'background: transparent'};
+        props.$active === true
+            ? `background: #0575FF;
+            color: white;`
+            : 'background: transparent;'}
+    &:hover {
+        background: lightgrey;
+    }
 `
-
+const PagingButton = styled.button`
+    margin: 0 5px;
+    padding: 2px 5px;
+`
 function Paging() {
     const entries = useSelector(selectTable).entries
     const numberOfEmployees = useSelector(selectEmployeeList).employees.length
@@ -39,13 +54,13 @@ function Paging() {
         for (let i = 0; i < entriesPage; i++) {
             setButtons((buttons) => [
                 ...buttons,
-                <PagingButton
+                <PagingNumbersButton
                     $active={i * entries === startIndex ? true : false}
                     key={'page' + i}
                     onClick={handleClick(i)}
                 >
                     {i + 1}
-                </PagingButton>,
+                </PagingNumbersButton>,
             ])
         }
     }, [entriesPage, setButtons, handleClick, entries, startIndex])
@@ -65,15 +80,17 @@ function Paging() {
             </div>
             <div>
                 {startIndex === 0 ? (
-                    <button disabled>Previous</button>
+                    <PagingButton disabled>Previous</PagingButton>
                 ) : (
-                    <button onClick={handlePreviousClick}>Previous</button>
+                    <PagingButton onClick={handlePreviousClick}>
+                        Previous
+                    </PagingButton>
                 )}
                 {buttons.length > 0 && buttons.map((button) => button)}
                 {startIndex + entries >= numberOfFilteredEmployees ? (
-                    <button disabled>Next</button>
+                    <PagingButton disabled>Next</PagingButton>
                 ) : (
-                    <button onClick={handleNextClick}>Next</button>
+                    <PagingButton onClick={handleNextClick}>Next</PagingButton>
                 )}
             </div>
         </PagingContainer>

@@ -5,29 +5,38 @@ import chevron from '../../assets/chevron-down-icon.svg'
 import * as employeeAction from '../../features/employee'
 import { selectEmployee } from '../../utils/selectors'
 
-const DropdownContainer = styled.div``
+const DropdownContainer = styled.div`
+    margin-bottom: 10px;
+`
 const StyledLabel = styled.label`
     display: flex;
-    margin: 10px 0px;
+    font-weight: bold;
+    margin-bottom: 10px;
 `
 const DropdownHeader = styled.div`
     position: relative;
     display: flex;
+    width: 250px;
+    height: 40px;
     justify-content: space-between;
     align-items: center;
+    padding-left: 10px;
     background: #f4f4f4;
     cursor: pointer;
 `
-const DropdownListContainer = styled.div``
+const DropdownListContainer = styled.div`
+    width: 250px;
+`
 const DropdownList = styled.ul`
     margin: 0;
     padding: 0;
 `
 const ListItem = styled.li`
     list-style: none;
+    padding: 1px 0 1px 10px;
     cursor: pointer;
     &:hover {
-        background: blue;
+        background: #0575ff;
         color: white;
     }
 `

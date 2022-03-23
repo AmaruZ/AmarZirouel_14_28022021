@@ -4,13 +4,20 @@ import styled from 'styled-components'
 import { selectTable } from '../../utils/selectors'
 import Sort from '../Sort'
 
+const TableContainer = styled.table`
+    margin-bottom: 10px;
+`
+const TableHeaderCell = styled.div`
+    display: flex;
+    align-items: center;
+`
 const TableRow = styled.tr`
     &:nth-child(2n) {
         background: #f4f4f4;
     }
 `
 const TableCell = styled.td`
-    padding: 5px 0;
+    padding: 5px 0 5px 10px;
 `
 
 function Table() {
@@ -55,7 +62,7 @@ function Table() {
         [listSliced]
     )
     return (
-        <table>
+        <TableContainer>
             <thead>
                 <tr>
                     {
@@ -67,7 +74,7 @@ function Table() {
                 </tr>
             </thead>
             <tbody>{rows}</tbody>
-        </table>
+        </TableContainer>
     )
 }
 
@@ -85,19 +92,21 @@ function Header({ listSorted, setListSorted }) {
     ]
     return headers.map((header) => (
         <th key={header.name}>
-            {header.name}{' '}
-            <Sort
-                attribute={header.field}
-                type={'ascendant'}
-                array={listSorted}
-                setListSorted={setListSorted}
-            />
-            <Sort
-                attribute={header.field}
-                type={'descendant'}
-                array={listSorted}
-                setListSorted={setListSorted}
-            />
+            <TableHeaderCell>
+                {header.name}{' '}
+                <Sort
+                    attribute={header.field}
+                    type={'ascendant'}
+                    array={listSorted}
+                    setListSorted={setListSorted}
+                />
+                <Sort
+                    attribute={header.field}
+                    type={'descendant'}
+                    array={listSorted}
+                    setListSorted={setListSorted}
+                />
+            </TableHeaderCell>
         </th>
     ))
 }

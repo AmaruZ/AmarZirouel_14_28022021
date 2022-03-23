@@ -7,23 +7,35 @@ import { days, months } from '../../utils/datepicker'
 const StyledLabel = styled.label`
     display: flex;
     flex-direction: column;
-    margin: 10px 0px;
+    font-weight: 700;
+    margin-bottom: 10px;
+`
+const DateInput = styled.input`
+    width: 250px;
+    height: 40px;
+    margin-bottom: 10px;
+    padding-left: 10px;
+    font-size: 1.1em;
+    border-radius: 5px;
+    border: solid 1px lightgrey;
+    &:focus-visible {
+        outline: solid 2px #c9deff;
+    }
 `
 const DatePickerContainer = styled.div`
-    width: 260px;
+    width: 250px;
     height: 250px;
     border-radius: 10px;
     box-shadow: 0px 2px 5px lightgrey;
 `
 const MonthDaysWrapper = styled.div`
-    display: flex;
-    flex-wrap: wrap;
-    justify-content: space-between;
-    align-items: center;
+    display: grid;
+    grid-template-columns: repeat(7, 1fr);
 `
 const DayTitle = styled.span`
-    width: 35px;
+    width: 32px;
     height: 20px;
+    font-weight: 700;
     text-align: center;
 `
 const DaySpan = styled.span`
@@ -32,17 +44,39 @@ const DaySpan = styled.span`
     align-items: center;
     width: 32px;
     height: 32px;
-    margin: 2px;
     cursor: pointer;
-    color: ${(props) => (props.$offmonth === true ? 'red' : 'black')};
-    background: ${(props) =>
-        props.$today === true ? 'orange' : 'transparent'};
+    color: ${(props) =>
+        props.$offmonth === true
+            ? 'lightgrey'
+            : props.$today
+            ? 'white'
+            : 'black'};
+    background: ${(props) => (props.$today === true ? '#0575FF' : 'none')};
     border-radius: 50%;
     &:hover {
-        background: grey;
+        background: lightgrey;
     }
 `
-
+const DatePickerHeader = styled.div`
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    height: 38px;
+`
+const DatePickerButton = styled.button`
+    height: 30px;
+    font-size: 1.2em;
+    margin: 0 2px;
+    color: #0575ff;
+    background: transparent;
+    border: none;
+    cursor: pointer;
+`
+const DatePickerSelect = styled.select`
+    font-size: 1.01em;
+    border: none;
+    cursor: pointer;
+`
 function DatePicker({ name, field, children }) {
     const [showDatePicker, setShowDatePicker] = useState(false)
     const date = new Date()
@@ -68,7 +102,6 @@ function DatePicker({ name, field, children }) {
     }
 
     useEffect(() => {
-        console.log('la')
         setMonthDetails(getMonthDetails(selectedYear, selectedMonth))
     }, [selectedYear, selectedMonth])
 
@@ -113,13 +146,19 @@ function DatePicker({ name, field, children }) {
     return (
         <div onFocus={handleFocus}>
             <StyledLabel htmlFor={name}>{children}</StyledLabel>
-            <input type="text" name={name} id="" ref={inputRef} />
+            <DateInput type="text" name={name} id="" ref={inputRef} />
             {showDatePicker && (
                 <DatePickerContainer>
-                    <div>
-                        <button onClick={PrevYear}> {'<<'} </button>
-                        <button onClick={PrevMonth}> {'<'} </button>
-                        <select
+                    <DatePickerHeader>
+                        <DatePickerButton onClick={PrevYear}>
+                            {' '}
+                            {'<<'}{' '}
+                        </DatePickerButton>
+                        <DatePickerButton onClick={PrevMonth}>
+                            {' '}
+                            {'<'}{' '}
+                        </DatePickerButton>
+                        <DatePickerSelect
                             value={months[selectedMonth]}
                             onChange={(e) =>
                                 setSelectedMonth(months.indexOf(e.target.value))
@@ -128,8 +167,8 @@ function DatePicker({ name, field, children }) {
                             {months.map((month) => (
                                 <option key={month}>{month}</option>
                             ))}
-                        </select>
-                        <select
+                        </DatePickerSelect>
+                        <DatePickerSelect
                             value={selectedYear}
                             onChange={(e) =>
                                 setSelectedYear(parseInt(e.target.value))
@@ -138,10 +177,16 @@ function DatePicker({ name, field, children }) {
                             {allYears.map((year) => (
                                 <option key={name + year}>{year}</option>
                             ))}
-                        </select>
-                        <button onClick={NextMonth}> {'>'} </button>
-                        <button onClick={NextYear}> {'>>'} </button>
-                    </div>
+                        </DatePickerSelect>
+                        <DatePickerButton onClick={NextMonth}>
+                            {' '}
+                            {'>'}{' '}
+                        </DatePickerButton>
+                        <DatePickerButton onClick={NextYear}>
+                            {' '}
+                            {'>>'}{' '}
+                        </DatePickerButton>
+                    </DatePickerHeader>
                     <MonthDaysWrapper>
                         {days.map((d) => (
                             <DayTitle key={d}>{d}</DayTitle>
@@ -149,6 +194,7 @@ function DatePicker({ name, field, children }) {
                         {monthDetails.map((day, i) => (
                             <DaySpan
                                 key={i}
+                                tabIndex={0}
                                 onClick={() => {
                                     handleClick(day)
                                 }}
@@ -216,7 +262,6 @@ const getMonthDetails = (year, month) => {
             index++
         }
     }
-    console.log(monthArray)
     return monthArray
 }
 

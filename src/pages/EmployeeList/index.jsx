@@ -6,20 +6,56 @@ import Paging from '../../components/Paging'
 import Table from '../../components/Table'
 import { setFilter } from '../../features/table'
 import { selectEmployeeList } from '../../utils/selectors'
+import styled from 'styled-components'
 
+const EmployeeListContainer = styled.main`
+    display: flex;
+    height: 100vh;
+`
+const LeftPannel = styled.div`
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    width: 25vw;
+    background: #0575ff;
+`
+const StyledLink = styled(Link)`
+    color: white;
+    margin-top: 100px;
+    &:hover {
+        text-decoration: none;
+    }
+`
+const EmployeeListTitle = styled.h1`
+    color: white;
+    margin-top: 50px;
+`
+const EmployeeListSubTitle = styled.h2`
+    margin-bottom: 20px;
+`
+const RightPannel = styled.div`
+    display: flex;
+    flex-direction: column;
+    margin: 50px 0 0 100px;
+`
 function EmployeeList() {
     const employeeList = useSelector(selectEmployeeList).employees
     const dispatch = useDispatch()
     dispatch(setFilter(employeeList))
 
     return (
-        <main>
-            <h1>Current Employees</h1>
-            <Filter />
-            <Table />
-            <Paging />
-            <Link to={'/'}>Home</Link>
-        </main>
+        <EmployeeListContainer>
+            <LeftPannel>
+                <EmployeeListTitle>HRnet</EmployeeListTitle>
+                <StyledLink to={'/'}>Home</StyledLink>
+            </LeftPannel>
+            <RightPannel>
+                <EmployeeListSubTitle>Current Employees</EmployeeListSubTitle>
+                <Filter />
+                <Table />
+                <Paging />
+            </RightPannel>
+        </EmployeeListContainer>
     )
 }
 
