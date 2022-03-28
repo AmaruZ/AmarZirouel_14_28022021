@@ -1,50 +1,48 @@
-import React from 'react'
+import React, { useRef, useState } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
-import styled from 'styled-components'
 import { departements } from '../../utils/departements'
 import { selectEmployee } from '../../utils/selectors'
 import { states } from '../../utils/states'
 import Dropdown from '../Dropdown'
 import Input from '../Input'
-import * as EmployeeListActions from '../../features/employeelist'
 import DatePicker from '../DatePicker'
+import { addEmployee } from '../../features/employeelist'
+import { FormContainer, InputsWrapper, SaveButton } from './style'
+import { resetFields } from '../../features/employee'
 
-const StyledForm = styled.form`
-    margin-top: 30px;
-`
+/**
+ *
+ * @param {Object} props
+ * @param {Function} props.setOpen
+ * @returns
+ */
 
-const InputsWrapper = styled.div`
-    display: flex;
-    justify-content: space-between;
-    width: 550px;
-`
-const SaveButton = styled.button`
-    width: 150px;
-    height: 40px;
-    font-size: 1.05em;
-    color: white;
-    background: #0575ff;
-    margin-top: 28px;
-    margin-right: 50px;
-    border: none;
-    border-radius: 5px;
-    cursor: pointer;
-    &:hover {
-        background: #0063dd;
-    }
-`
 function Form({ setOpen }) {
     const employee = useSelector(selectEmployee)
     const dispatch = useDispatch()
+    const [error, setError] = useState(false)
+    const firstNameRef = useRef()
     const handleSubmit = (e) => {
         e.preventDefault()
-        setOpen(true)
-        dispatch(EmployeeListActions.addEmployee(employee))
+        if (!firstNameRef.current.value.match(/^[a-zA-Z]+$/)) {
+            setError(true)
+        } else {
+            setError(false)
+            setOpen(true)
+            dispatch(addEmployee(employee))
+            dispatch(resetFields())
+            firstNameRef.current.value = ''
+        }
     }
     return (
-        <StyledForm>
+        <FormContainer>
             <InputsWrapper>
-                <Input name={'first-name'} field={'firstName'}>
+                <Input
+                    name={'first-name'}
+                    field={'firstName'}
+                    _ref={firstNameRef}
+                    error={error}
+                >
                     First Name
                 </Input>
                 <Input name={'last-name'} field={'lastName'}>
@@ -86,7 +84,7 @@ function Form({ setOpen }) {
                     Save
                 </SaveButton>
             </InputsWrapper>
-        </StyledForm>
+        </FormContainer>
     )
 }
 
