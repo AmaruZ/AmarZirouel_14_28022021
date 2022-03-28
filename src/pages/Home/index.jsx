@@ -13,7 +13,7 @@ const LeftPannel = styled.div`
     flex-direction: column;
     align-items: center;
     width: 25vw;
-    background: #0575ff;
+    background: #0053b8;
 `
 
 const StyledTitle = styled.h1`
