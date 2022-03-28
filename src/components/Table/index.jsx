@@ -1,24 +1,8 @@
 import React, { useEffect, useMemo, useState } from 'react'
 import { useSelector } from 'react-redux'
-import styled from 'styled-components'
 import { selectTable } from '../../utils/selectors'
-import Sort from '../Sort'
-
-const TableContainer = styled.table`
-    margin-bottom: 10px;
-`
-const TableHeaderCell = styled.div`
-    display: flex;
-    align-items: center;
-`
-const TableRow = styled.tr`
-    &:nth-child(2n) {
-        background: #f4f4f4;
-    }
-`
-const TableCell = styled.td`
-    padding: 5px 0 5px 10px;
-`
+import { TableCell, TableContainer, TableRow } from './style'
+import TableHeader from './TableHeader'
 
 function Table() {
     const entries = useSelector(selectTable).entries
@@ -66,7 +50,7 @@ function Table() {
             <thead>
                 <tr>
                     {
-                        <Header
+                        <TableHeader
                             listSorted={listSorted}
                             setListSorted={setListSorted}
                         />
@@ -76,39 +60,6 @@ function Table() {
             <tbody>{rows}</tbody>
         </TableContainer>
     )
-}
-
-function Header({ listSorted, setListSorted }) {
-    const headers = [
-        { name: 'First Name', field: 'firstName' },
-        { name: 'Last Name', field: 'lastName' },
-        { name: 'Start Date', field: 'startDate' },
-        { name: 'Departement', field: 'departement' },
-        { name: 'Date of Birth', field: 'birthDate' },
-        { name: 'Street', field: 'street' },
-        { name: 'City', field: 'city' },
-        { name: 'State', field: 'state' },
-        { name: 'Zip Code', field: 'zipCode' },
-    ]
-    return headers.map((header) => (
-        <th key={header.name}>
-            <TableHeaderCell>
-                {header.name}{' '}
-                <Sort
-                    attribute={header.field}
-                    type={'ascendant'}
-                    array={listSorted}
-                    setListSorted={setListSorted}
-                />
-                <Sort
-                    attribute={header.field}
-                    type={'descendant'}
-                    array={listSorted}
-                    setListSorted={setListSorted}
-                />
-            </TableHeaderCell>
-        </th>
-    ))
 }
 
 export default Table

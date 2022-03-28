@@ -1,4 +1,6 @@
 import { createSlice } from '@reduxjs/toolkit'
+import { departements } from '../utils/departements'
+import { states } from '../utils/states'
 
 const initialState = {
     firstName: '',
@@ -7,9 +9,9 @@ const initialState = {
     startDate: '',
     street: '',
     city: '',
-    state: '',
+    state: states[0].name,
     zipCode: '',
-    departement: '',
+    departement: departements[0].name,
 }
 
 const { actions, reducer } = createSlice({
@@ -24,10 +26,12 @@ const { actions, reducer } = createSlice({
                 draft[action.payload.field] = action.payload.value
             },
         },
-        setValue: {},
+        resetFields: () => {
+            return initialState
+        },
     },
 })
 
-export const { changeField } = actions
+export const { changeField, resetFields } = actions
 
 export default reducer

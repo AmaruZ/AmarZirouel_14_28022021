@@ -7,6 +7,12 @@ const SortIcon = styled.img`
     ${(props) => props.$ascendant && 'transform: rotate(180deg);'}
 `
 
+/**
+ * Sort column component
+ * @param {Object} props
+ * @returns
+ */
+
 function Sort({ type, array, attribute, setListSorted }) {
     const handleClick = () => {
         type === 'ascendant'

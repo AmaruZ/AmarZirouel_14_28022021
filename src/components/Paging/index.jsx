@@ -2,32 +2,13 @@ import React, { useCallback, useEffect, useState } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
 import { setStartIndex } from '../../features/table'
 import { selectEmployeeList, selectTable } from '../../utils/selectors'
-import styled from 'styled-components'
+import { PagingButton, PagingContainer, PagingNumbersButton } from './style'
 
-const PagingContainer = styled.div`
-    display: flex;
-    justify-content: space-between;
-`
-const PagingNumbersButton = styled.button`
-    width: 23px;
-    height: 23px;
-    margin: 0 2px;
-    border-radius: 5px;
-    border: none;
-    cursor: pointer;
-    ${(props) =>
-        props.$active === true
-            ? `background: #0575FF;
-            color: white;`
-            : 'background: transparent;'}
-    &:hover {
-        background: lightgrey;
-    }
-`
-const PagingButton = styled.button`
-    margin: 0 5px;
-    padding: 2px 5px;
-`
+/**
+ * Paging component
+ * @returns
+ */
+
 function Paging() {
     const entries = useSelector(selectTable).entries
     const numberOfEmployees = useSelector(selectEmployeeList).employees.length

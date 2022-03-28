@@ -2,24 +2,13 @@ import React from 'react'
 import { useDispatch, useSelector } from 'react-redux'
 import { setEntries, setFilter, setStartIndex } from '../../features/table'
 import { selectEmployeeList } from '../../utils/selectors'
-import styled from 'styled-components'
+import { FilterContainer, FilterInput } from './style'
 
-const FilterContainer = styled.div`
-    display: flex;
-    justify-content: space-between;
-    margin-bottom: 10px;
-`
-const FilterInput = styled.input`
-    height: 20px;
-    margin-left: 10px;
-    padding-left: 10px;
-    font-size: 1.05em;
-    border-radius: 5px;
-    border: solid 1px lightgrey;
-    &:focus-visible {
-        outline: solid 2px #c9deff;
-    }
-`
+/**
+ * Filter table component
+ * @returns
+ */
+
 function Filter() {
     const dispatch = useDispatch()
     const employees = useSelector(selectEmployeeList).employees
@@ -64,7 +53,11 @@ function Filter() {
                 entries
             </div>
             <div>
-                Search <FilterInput onChange={(e) => handleChange(e)} />
+                <label htmlFor="search-input">Search</label>{' '}
+                <FilterInput
+                    id="search-input"
+                    onChange={(e) => handleChange(e)}
+                />
             </div>
         </FilterContainer>
     )
