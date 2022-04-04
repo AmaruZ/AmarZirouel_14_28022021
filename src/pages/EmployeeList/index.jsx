@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { useEffect, useState } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
 import { Link } from 'react-router-dom'
 import Filter from '../../components/Filter'
@@ -7,6 +7,8 @@ import Table from '../../components/Table'
 import { setFilter } from '../../features/table'
 import { selectEmployeeList } from '../../utils/selectors'
 import styled from 'styled-components'
+import { fetchEmployees } from '../../services'
+import { addEmployee } from '../../features/employeelist'
 
 const EmployeeListContainer = styled.main`
     display: flex;
@@ -39,10 +41,16 @@ const RightPannel = styled.div`
     margin: 50px 0 0 100px;
 `
 function EmployeeList() {
-    const employeeList = useSelector(selectEmployeeList).employees
     const dispatch = useDispatch()
-    dispatch(setFilter(employeeList))
 
+    useEffect(() => {
+        const getEmployees = async () => {
+            const employeesList = await fetchEmployees()
+            dispatch(setFilter(employeesList))
+            employeesList.map((employee) => dispatch(addEmployee(employee)))
+        }
+        getEmployees()
+    }, [dispatch])
     return (
         <EmployeeListContainer>
             <LeftPannel>

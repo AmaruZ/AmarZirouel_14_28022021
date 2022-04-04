@@ -31,7 +31,7 @@ function Filter() {
                 el.startDate.toLowerCase().indexOf(string.toLowerCase()) !==
                     -1 ||
                 el.city.toLowerCase().indexOf(string.toLowerCase()) !== -1 ||
-                el.zipCode.toLowerCase().indexOf(string.toLowerCase()) !== -1 ||
+                el.zipcode.toLowerCase().indexOf(string.toLowerCase()) !== -1 ||
                 el.birthDate.toLowerCase().indexOf(string.toLowerCase()) !== -1
         )
     }

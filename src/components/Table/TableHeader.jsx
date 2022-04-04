@@ -12,7 +12,7 @@ function TableHeader({ listSorted, setListSorted }) {
         { name: 'Street', field: 'street' },
         { name: 'City', field: 'city' },
         { name: 'State', field: 'state' },
-        { name: 'Zip Code', field: 'zipCode' },
+        { name: 'Zip Code', field: 'zipcode' },
     ]
     return headers.map((header) => (
         <th key={header.name}>

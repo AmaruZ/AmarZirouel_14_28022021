@@ -39,7 +39,7 @@ function Table() {
                         <TableCell>{employee.street}</TableCell>
                         <TableCell>{employee.city}</TableCell>
                         <TableCell>{employee.state}</TableCell>
-                        <TableCell>{employee.zipCode}</TableCell>
+                        <TableCell>{employee.zipcode}</TableCell>
                     </TableRow>
                 )
             }),

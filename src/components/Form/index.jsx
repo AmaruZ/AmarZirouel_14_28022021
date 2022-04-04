@@ -6,9 +6,9 @@ import { states } from '../../utils/states'
 import Dropdown from '../Dropdown'
 import Input from '../Input'
 import DatePicker from '../DatePicker'
-import { addEmployee } from '../../features/employeelist'
 import { FormContainer, InputsWrapper, SaveButton } from './style'
 import { resetFields } from '../../features/employee'
+import { addEmployee } from '../../services'
 
 /**
  *
@@ -29,7 +29,7 @@ function Form({ setOpen }) {
         } else {
             setError(false)
             setOpen(true)
-            dispatch(addEmployee(employee))
+            addEmployee(employee)
             dispatch(resetFields())
             firstNameRef.current.value = ''
         }
@@ -68,7 +68,7 @@ function Form({ setOpen }) {
                     <Input name={'city'} field={'city'}>
                         City
                     </Input>
-                    <Input name={'zip-code'} field={'zipCode'}>
+                    <Input name={'zip-code'} field={'zipcode'}>
                         Zip Code
                     </Input>
                 </InputsWrapper>
