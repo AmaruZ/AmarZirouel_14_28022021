@@ -1,5 +1,6 @@
 import { useEffect, useState } from 'react'
 import { months } from '../../utils/datepicker'
+import PropTypes from 'prop-types'
 import {
     DatePickerButton,
     DatePickerHeaderContainer,
@@ -82,6 +83,13 @@ function DatePickerHeader({
             <DatePickerButton onClick={NextYear}> {'>>'} </DatePickerButton>
         </DatePickerHeaderContainer>
     )
+}
+
+DatePickerHeader.propTypes = {
+    selectedMonth: PropTypes.number,
+    selectedYear: PropTypes.number,
+    setSelectedMonth: PropTypes.func,
+    setSelectedYear: PropTypes.func,
 }
 
 export default DatePickerHeader

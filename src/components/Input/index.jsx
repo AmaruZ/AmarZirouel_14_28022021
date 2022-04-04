@@ -1,3 +1,4 @@
+import PropTypes from 'prop-types'
 import React from 'react'
 import { useDispatch } from 'react-redux'
 import * as employeeAction from '../../features/employee'
@@ -15,7 +16,7 @@ import { ErrorText, InputContainer, StyledInput, StyledLabel } from './style'
  * @returns
  */
 
-function Input({ name, field, children, type = 'text', _ref, error }) {
+function Input({ name, field, children, type, _ref, error }) {
     const dispatch = useDispatch()
 
     const handleChange = (e) => {
@@ -39,6 +40,19 @@ function Input({ name, field, children, type = 'text', _ref, error }) {
             )}
         </InputContainer>
     )
+}
+
+Input.propTypes = {
+    name: PropTypes.string,
+    field: PropTypes.string,
+    children: PropTypes.string,
+    type: PropTypes.string,
+    _ref: PropTypes.object,
+    error: PropTypes.bool,
+}
+
+Input.defaultProps = {
+    type: 'text',
 }
 
 export default Input

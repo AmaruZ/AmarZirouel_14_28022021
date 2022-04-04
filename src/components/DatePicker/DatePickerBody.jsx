@@ -3,6 +3,7 @@ import { useDispatch } from 'react-redux'
 import { changeField } from '../../features/employee'
 import { DatePickerBodyContainer, DayCell, DayTitle } from './style'
 import { days } from '../../utils/datepicker'
+import PropTypes from 'prop-types'
 
 /**
  * Date picker's part with the table of days
@@ -64,6 +65,9 @@ function DatePickerBody({
                     onClick={() => {
                         handleClick(day)
                     }}
+                    onKeyDown={(e) => {
+                        e.key === 'Enter' && handleClick(day)
+                    }}
                     $offmonth={day.month !== 0 ? true : false}
                     $today={day.timestamp === todayTimestamp ? true : false}
                 >
@@ -72,6 +76,15 @@ function DatePickerBody({
             ))}
         </DatePickerBodyContainer>
     )
+}
+
+DatePickerBody.propTypes = {
+    selectedMonth: PropTypes.number,
+    selectedYear: PropTypes.number,
+    inputRef: PropTypes.object,
+    setShowDatePicker: PropTypes.func,
+    monthDays: PropTypes.array,
+    field: PropTypes.string,
 }
 
 export default DatePickerBody

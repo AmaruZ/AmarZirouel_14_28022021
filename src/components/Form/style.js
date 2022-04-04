@@ -13,7 +13,7 @@ export const SaveButton = styled.button`
     height: 40px;
     font-size: 1.05em;
     color: white;
-    background: #0575ff;
+    background: #0053b8;
     margin-top: 28px;
     margin-right: 50px;
     border: none;

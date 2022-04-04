@@ -1,5 +1,6 @@
 import React from 'react'
 import chevron from '../../assets/chevron-down-icon.svg'
+import PropTypes from 'prop-types'
 import styled from 'styled-components'
 
 const SortIcon = styled.img`
@@ -60,5 +61,14 @@ function Sort({ type, array, attribute, setListSorted }) {
         />
     )
 }
+
+Sort.propTypes = {
+    type: PropTypes.string,
+    array: PropTypes.array,
+    attribute: PropTypes.string,
+    setListSorted: PropTypes.func,
+}
+
+Sort.defaultProps = {}
 
 export default Sort

@@ -20,6 +20,8 @@ export const DropdownHeader = styled.div`
     cursor: pointer;
 `
 export const DropdownChevron = styled.img`
+    width: 24px;
+    height: 24px;
     margin-right: 10px;
     ${(props) => props.$isOpen && `transform: rotate(180deg);`}
 `

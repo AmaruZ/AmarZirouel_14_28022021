@@ -3,6 +3,7 @@ import { useDispatch, useSelector } from 'react-redux'
 import chevron from '../../assets/chevron-down-icon.svg'
 import * as employeeAction from '../../features/employee'
 import { selectEmployee } from '../../utils/selectors'
+import PropTypes, { objectOf, string } from 'prop-types'
 import {
     DropdownChevron,
     DropdownContainer,
@@ -65,6 +66,16 @@ function Dropdown({ label, field, data }) {
             )}
         </DropdownContainer>
     )
+}
+
+Dropdown.propTypes = {
+    label: PropTypes.string,
+    field: PropTypes.string,
+    data: PropTypes.arrayOf(objectOf(string)),
+}
+
+Dropdown.defaultProps = {
+    data: [],
 }
 
 export default Dropdown
