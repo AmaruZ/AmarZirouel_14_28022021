@@ -38,6 +38,19 @@ function Form({ setOpen }) {
         <FormContainer>
             <InputsWrapper>
                 <Input
+                    name={'email'}
+                    field={'email'}
+                    _ref={firstNameRef}
+                    error={error}
+                >
+                    Email
+                </Input>
+                <Input name={'password'} field={'password'} type={'password'}>
+                    Password
+                </Input>
+            </InputsWrapper>
+            <InputsWrapper>
+                <Input
                     name={'first-name'}
                     field={'firstName'}
                     _ref={firstNameRef}
