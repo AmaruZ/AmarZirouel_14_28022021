@@ -52,10 +52,17 @@ function DatePickerHeader({
         }
     }
     const PrevYear = (e) => {
-        e.preventDefault()(setSelectedYear(selectedYear - 1))
+        e.preventDefault()
+        if (selectedYear !== 1900) {
+            setSelectedYear(selectedYear - 1)
+        }
     }
     const NextYear = (e) => {
-        e.preventDefault()(setSelectedYear(selectedYear + 1))
+        e.preventDefault()
+        const date = new Date()
+        if (selectedYear !== date.getFullYear()) {
+            setSelectedYear(selectedYear + 1)
+        }
     }
     return (
         <DatePickerHeaderContainer>
