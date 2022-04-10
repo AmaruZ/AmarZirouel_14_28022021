@@ -4,6 +4,8 @@ import DatePickerHeader from './DatePickerHeader'
 import { DateInput, DatePickerContainer, StyledLabel } from './style'
 import { getMonthDays } from './utils'
 import PropTypes from 'prop-types'
+import { useDispatch } from 'react-redux'
+import { changeField } from '../../features/employee'
 
 /**
  * Date picker component
@@ -22,9 +24,13 @@ function DatePicker({ name, field, children }) {
     const [selectedYear, setSelectedYear] = useState(date.getFullYear())
     const [selectedMonth, setSelectedMonth] = useState(date.getMonth())
     const [monthDays, setMonthDays] = useState([])
+    const dispatch = useDispatch()
 
     const handleFocus = () => {
         setShowDatePicker(true)
+    }
+    const handleChange = () => {
+        dispatch(changeField(field, inputRef.current.value))
     }
     const handleClickOutside = useCallback((e) => {
         if (!datePickerRef.current.contains(e.target)) {
@@ -45,7 +51,13 @@ function DatePicker({ name, field, children }) {
     return (
         <div ref={datePickerRef} onFocus={handleFocus}>
             <StyledLabel htmlFor={name}>{children}</StyledLabel>
-            <DateInput type="text" name={name} id={name} ref={inputRef} />
+            <DateInput
+                type="text"
+                name={name}
+                id={name}
+                ref={inputRef}
+                onChange={handleChange}
+            />
             {showDatePicker && (
                 <DatePickerContainer>
                     <DatePickerHeader

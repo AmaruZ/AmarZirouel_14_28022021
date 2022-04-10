@@ -16,41 +16,44 @@ const SortIcon = styled.img`
 
 function Sort({ type, array, attribute, setListSorted }) {
     const handleClick = () => {
-        type === 'ascendant'
-            ? setListSorted(
-                  array.slice().sort((a, b) => {
-                      if (
-                          a[attribute].toLowerCase() >
-                          b[attribute].toLowerCase()
-                      )
-                          return 1
-                      else if (
-                          a[attribute].toLowerCase() <
-                          b[attribute].toLowerCase()
-                      )
-                          return -1
-                      else {
-                          return 0
-                      }
-                  })
-              )
-            : setListSorted(
-                  array.slice().sort((a, b) => {
-                      if (
-                          a[attribute].toLowerCase() >
-                          b[attribute].toLowerCase()
-                      )
-                          return -1
-                      else if (
-                          a[attribute].toLowerCase() <
-                          b[attribute].toLowerCase()
-                      )
-                          return 1
-                      else {
-                          return 0
-                      }
-                  })
-              )
+        setListSorted(
+            array.slice().sort((a, b) => {
+                if (attribute === 'startDate' || attribute === 'birthDate') {
+                    const yearA = a[attribute].toLowerCase().split('/')[2]
+                    const yearB = b[attribute].toLowerCase().split('/')[2]
+                    const monthA = a[attribute].toLowerCase().split('/')[1]
+                    const monthB = b[attribute].toLowerCase().split('/')[1]
+                    const dayA = a[attribute].toLowerCase().split('/')[0]
+                    const dayB = b[attribute].toLowerCase().split('/')[0]
+
+                    if (yearA > yearB) return type === 'ascendant' ? 1 : -1
+                    else if (yearA < yearB) return type === 'ascendant' ? -1 : 1
+                    else {
+                        if (monthA > monthB)
+                            return type === 'ascendant' ? 1 : -1
+                        else if (monthA < monthB)
+                            return type === 'ascendant' ? -1 : 1
+                        else {
+                            if (dayA > dayB)
+                                return type === 'ascendant' ? 1 : -1
+                            else if (dayA < dayB)
+                                return type === 'ascendant' ? -1 : 1
+                            else return 0
+                        }
+                    }
+                } else {
+                    if (a[attribute].toLowerCase() > b[attribute].toLowerCase())
+                        return type === 'ascendant' ? 1 : -1
+                    else if (
+                        a[attribute].toLowerCase() < b[attribute].toLowerCase()
+                    )
+                        return type === 'ascendant' ? -1 : 1
+                    else {
+                        return 0
+                    }
+                }
+            })
+        )
     }
     return (
         <SortIcon
