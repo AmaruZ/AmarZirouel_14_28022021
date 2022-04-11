@@ -16,3 +16,11 @@ export async function addEmployee(employee) {
         console.log(error)
     }
 }
+
+export async function signIn(employee) {
+    try {
+        await axios.post('http://localhost:3001/api/employee/login', employee)
+    } catch (error) {
+        console.log(error)
+    }
+}

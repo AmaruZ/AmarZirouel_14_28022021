@@ -25,6 +25,7 @@ exports.createEmployee = (req, res, next) => {
 }
 
 exports.loginEmployee = (req, res, next) => {
+    console.log(req.body)
     Employee.findOne({ email: req.body.email })
         .then((employee) => {
             if (!employee) {
@@ -59,6 +60,18 @@ exports.modifyEmployee = (req, res, next) => {
 }
 
 exports.deleteEmployee = (req, res, next) => {
+    Employee.findOne({ _id: req.params.id }).then((employee) => {
+        if (!employee) {
+            return res
+                .status(404)
+                .json({ error: new Error('Employee not found') })
+        }
+        if (employee.employeeId !== req.auth.employeeId) {
+            return res
+                .status(401)
+                .json({ error: new Error('Request unauthorized') })
+        }
+    })
     Employee.deleteOne({ _id: req.params.id })
         .then(() => res.status(200).json({ message: 'Employee deleted!' }))
         .catch((error) => res.status(400).json({ error }))

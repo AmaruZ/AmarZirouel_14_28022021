@@ -56,6 +56,7 @@ function EmployeeList() {
             <LeftPannel>
                 <EmployeeListTitle>HRnet</EmployeeListTitle>
                 <StyledLink to={'/'}>Home</StyledLink>
+                <StyledLink to={'/login'}>Login</StyledLink>
             </LeftPannel>
             <RightPannel>
                 <EmployeeListSubTitle>Current Employees</EmployeeListSubTitle>

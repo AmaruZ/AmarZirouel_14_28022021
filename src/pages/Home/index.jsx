@@ -42,6 +42,7 @@ function Home() {
                 <StyledLink to={'/employee-list'}>
                     View Current Employees
                 </StyledLink>
+                <StyledLink to={'/login'}>Login</StyledLink>
             </LeftPannel>
             <RightPannel>
                 <h2>Create Employee</h2>

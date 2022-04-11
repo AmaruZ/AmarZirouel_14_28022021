@@ -4,6 +4,7 @@ import { Provider } from 'react-redux'
 import { BrowserRouter, Route, Routes } from 'react-router-dom'
 import EmployeeList from './pages/EmployeeList'
 import Home from './pages/Home'
+import Login from './pages/Login'
 import reportWebVitals from './reportWebVitals'
 import store from './utils/store'
 import GlobalStyle from './utils/style/globalStyles'
@@ -16,6 +17,7 @@ ReactDOM.render(
                 <Routes>
                     <Route path="/" element={<Home />} />
                     <Route path="/employee-list" element={<EmployeeList />} />
+                    <Route path="/login" element={<Login />} />
                 </Routes>
             </BrowserRouter>
         </Provider>
