@@ -7,11 +7,10 @@ import PropTypes, { objectOf, string } from 'prop-types'
 import {
     DropdownChevron,
     DropdownContainer,
-    DropdownHeader,
+    DropdownButton,
     DropdownList,
-    DropdownListContainer,
     ListItem,
-    StyledLabel,
+    DropdownLabel,
 } from './style'
 
 /**
@@ -32,10 +31,38 @@ function Dropdown({ label, field, data }) {
         setOpen(!isOpen)
     }
 
-    const onOptionClicked = (option) => () => {
+    const handleButtonClick = (e) => {
+        e.preventDefault()
+        toggle()
+    }
+
+    const handleOptionClick = (option) => () => {
         dispatch(employeeAction.changeField(field, option))
         toggle()
     }
+
+    const handleKeyDown = (option) => (e) => {
+        if (e.key === 'Enter' || e.key === 'Space') {
+            e.preventDefault()
+            dispatch(employeeAction.changeField(field, option))
+            toggle()
+        }
+    }
+
+    const optionsList = data.map((option) => {
+        return (
+            <ListItem
+                onClick={handleOptionClick(option.name)}
+                onKeyDown={handleKeyDown(option.name)}
+                key={option.name}
+                role={'option'}
+                tabIndex={0}
+                aria-selected={option.name === employee[field]}
+            >
+                {option.name}
+            </ListItem>
+        )
+    })
 
     useEffect(() => {
         dispatch(employeeAction.changeField(field, data[0].name))
@@ -43,26 +70,21 @@ function Dropdown({ label, field, data }) {
 
     return (
         <DropdownContainer>
-            <StyledLabel htmlFor={label}>{label}</StyledLabel>
-            <DropdownHeader name={label} onClick={toggle}>
+            <DropdownLabel id={label.toLowerCase()}>{label}</DropdownLabel>
+            <DropdownButton
+                onClick={handleButtonClick}
+                type={'button'}
+                aria-labelledby={`${label.toLowerCase()}`}
+                aria-haspopup={'listbox'}
+                aria-expanded={isOpen ? true : false}
+            >
                 {employee[field]}
                 <DropdownChevron src={chevron} alt="" $isOpen={isOpen} />
-            </DropdownHeader>
+            </DropdownButton>
             {isOpen && (
-                <DropdownListContainer>
-                    <DropdownList>
-                        {data.map((option) => {
-                            return (
-                                <ListItem
-                                    onClick={onOptionClicked(option.name)}
-                                    key={option.name}
-                                >
-                                    {option.name}
-                                </ListItem>
-                            )
-                        })}
-                    </DropdownList>
-                </DropdownListContainer>
+                <DropdownList role={'listbox'} tabIndex={-1}>
+                    {optionsList}
+                </DropdownList>
             )}
         </DropdownContainer>
     )
