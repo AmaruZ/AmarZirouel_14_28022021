@@ -2,7 +2,7 @@ import PropTypes from 'prop-types'
 import React from 'react'
 import { useDispatch } from 'react-redux'
 import * as employeeAction from '../../features/employee'
-import { ErrorText, InputContainer, StyledInput, StyledLabel } from './style'
+import { InputContainer, StyledInput, StyledLabel } from './style'
 
 /**
  * Input component
@@ -12,11 +12,10 @@ import { ErrorText, InputContainer, StyledInput, StyledLabel } from './style'
  * @param {String} props.children
  * @param {String} props.type
  * @param {Ref} props._ref
- * @param {Boolean} props.error
  * @returns
  */
 
-function Input({ name, field, children, type, _ref, error }) {
+function Input({ name, field, children, type, _ref }) {
     const dispatch = useDispatch()
 
     const handleChange = (e) => {
@@ -32,12 +31,8 @@ function Input({ name, field, children, type, _ref, error }) {
                 onChange={handleChange}
                 $width={name === 'street' ? 'long' : 'normal'}
                 ref={_ref}
+                required
             />
-            {error && (
-                <ErrorText>
-                    Please check that the {children.toLowerCase()} is correct
-                </ErrorText>
-            )}
         </InputContainer>
     )
 }

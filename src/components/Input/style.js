@@ -21,7 +21,3 @@ export const StyledInput = styled.input`
         outline: solid 2px #c9deff;
     }
 `
-export const ErrorText = styled.p`
-    color: red;
-    font-size: 0.8rem;
-`

@@ -1,4 +1,4 @@
-import React, { useRef, useState } from 'react'
+import React, { useRef } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
 import { departements } from '../../utils/departements'
 import { selectEmployee } from '../../utils/selectors'
@@ -20,28 +20,24 @@ import { resetFields } from '../../features/employee'
 function Form({ setOpen }) {
     const employee = useSelector(selectEmployee)
     const dispatch = useDispatch()
-    const [error, setError] = useState(false)
     const firstNameRef = useRef()
+    const formRef = useRef()
     const handleSubmit = (e) => {
-        e.preventDefault()
-        if (!firstNameRef.current.value.match(/^[a-zA-Z]+$/)) {
-            setError(true)
-        } else {
-            setError(false)
+        if (formRef.current.checkValidity()) {
+            e.preventDefault()
             setOpen(true)
             dispatch(addEmployee(employee))
             dispatch(resetFields())
             firstNameRef.current.value = ''
-        }
+        } else formRef.current.reportValidity()
     }
     return (
-        <FormContainer>
+        <FormContainer ref={formRef}>
             <InputsWrapper>
                 <Input
                     name={'first-name'}
                     field={'firstName'}
                     _ref={firstNameRef}
-                    error={error}
                 >
                     First Name
                 </Input>

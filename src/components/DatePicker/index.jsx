@@ -29,15 +29,24 @@ function DatePicker({ name, field, children }) {
     const handleFocus = () => {
         setShowDatePicker(true)
     }
+
     const handleChange = () => {
         dispatch(changeField(field, inputRef.current.value))
     }
+
+    const handleKeyDown = (e) => {
+        if (e.key === 'Escape') {
+            setShowDatePicker(false)
+        }
+    }
+
     const handleClickOutside = useCallback((e) => {
         if (!datePickerRef.current.contains(e.target)) {
             setShowDatePicker(false)
             document.removeEventListener('mousedown', handleClickOutside)
         }
     }, [])
+
     useEffect(() => {
         if (showDatePicker) {
             document.addEventListener('mousedown', handleClickOutside)
@@ -49,7 +58,11 @@ function DatePicker({ name, field, children }) {
     }, [selectedYear, selectedMonth])
 
     return (
-        <div ref={datePickerRef} onFocus={handleFocus}>
+        <div
+            ref={datePickerRef}
+            onFocus={handleFocus}
+            onKeyDown={handleKeyDown}
+        >
             <StyledLabel htmlFor={name}>{children}</StyledLabel>
             <DateInput
                 type="text"
@@ -57,6 +70,7 @@ function DatePicker({ name, field, children }) {
                 id={name}
                 ref={inputRef}
                 onChange={handleChange}
+                required
             />
             {showDatePicker && (
                 <DatePickerContainer>
