@@ -1,8 +1,7 @@
 import React, { useEffect, useState } from 'react'
-import { useDispatch, useSelector } from 'react-redux'
+import { useDispatch } from 'react-redux'
 import chevron from '../../assets/chevron-down-icon.svg'
 import * as employeeAction from '../../features/employee'
-import { selectEmployee } from '../../utils/selectors'
 import PropTypes, { objectOf, string } from 'prop-types'
 import {
     DropdownChevron,
@@ -25,7 +24,7 @@ import {
 function Dropdown({ label, field, data }) {
     const [isOpen, setOpen] = useState(false)
     const dispatch = useDispatch()
-    const employee = useSelector(selectEmployee)
+    const [selectedOption, setSelectedOption] = useState(data[0].name)
 
     const toggle = () => {
         setOpen(!isOpen)
@@ -37,14 +36,26 @@ function Dropdown({ label, field, data }) {
     }
 
     const handleOptionClick = (option) => () => {
-        dispatch(employeeAction.changeField(field, option))
+        setSelectedOption(option.name)
+        dispatch(
+            employeeAction.changeField(
+                field,
+                option.abbreviation ? option.abbreviation : option.name
+            )
+        )
         toggle()
     }
 
     const handleKeyDown = (option) => (e) => {
         if (e.key === 'Enter' || e.key === 'Space') {
             e.preventDefault()
-            dispatch(employeeAction.changeField(field, option))
+            setSelectedOption(option.name)
+            dispatch(
+                employeeAction.changeField(
+                    field,
+                    option.abbreviation ? option.abbreviation : option.name
+                )
+            )
             toggle()
         }
     }
@@ -52,12 +63,12 @@ function Dropdown({ label, field, data }) {
     const optionsList = data.map((option) => {
         return (
             <ListItem
-                onClick={handleOptionClick(option.name)}
-                onKeyDown={handleKeyDown(option.name)}
+                onClick={handleOptionClick(option)}
+                onKeyDown={handleKeyDown(option)}
                 key={option.name}
                 role={'option'}
                 tabIndex={0}
-                aria-selected={option.name === employee[field]}
+                aria-selected={option.name === selectedOption}
             >
                 {option.name}
             </ListItem>
@@ -78,7 +89,7 @@ function Dropdown({ label, field, data }) {
                 aria-haspopup={'listbox'}
                 aria-expanded={isOpen ? true : false}
             >
-                {employee[field]}
+                {selectedOption}
                 <DropdownChevron src={chevron} alt="" $isOpen={isOpen} />
             </DropdownButton>
             {isOpen && (

@@ -9,7 +9,7 @@ const initialState = {
     startDate: '',
     street: '',
     city: '',
-    state: states[0].name,
+    state: states[0].abbreviation,
     zipCode: '',
     departement: departements[0].name,
 }
