@@ -18,18 +18,20 @@ function TableHeader({ listSorted, setListSorted }) {
         <th key={header.name}>
             <TableHeaderCell>
                 {header.name}{' '}
-                <Sort
-                    attribute={header.field}
-                    type={'ascendant'}
-                    array={listSorted}
-                    setListSorted={setListSorted}
-                />
-                <Sort
-                    attribute={header.field}
-                    type={'descendant'}
-                    array={listSorted}
-                    setListSorted={setListSorted}
-                />
+                <div>
+                    <Sort
+                        attribute={header.field}
+                        type={'ascendant'}
+                        array={listSorted}
+                        setListSorted={setListSorted}
+                    />
+                    <Sort
+                        attribute={header.field}
+                        type={'descendant'}
+                        array={listSorted}
+                        setListSorted={setListSorted}
+                    />
+                </div>
             </TableHeaderCell>
         </th>
     ))

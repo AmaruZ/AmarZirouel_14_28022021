@@ -5,6 +5,7 @@ import styled from 'styled-components'
 
 const SortIcon = styled.img`
     cursor: pointer;
+    width: 24px;
     ${(props) => props.$ascendant && 'transform: rotate(180deg);'}
 `
 
