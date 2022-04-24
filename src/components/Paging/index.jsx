@@ -50,7 +50,8 @@ function Paging() {
         <PagingContainer>
             <div>
                 <p>
-                    Showing {startIndex + 1} to{' '}
+                    Showing {numberOfFilteredEmployees > 0 ? startIndex + 1 : 0}{' '}
+                    to{' '}
                     {startIndex + entries > numberOfFilteredEmployees
                         ? numberOfFilteredEmployees
                         : startIndex + entries}{' '}
