@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react'
+import React, { useState } from 'react'
 import { useDispatch } from 'react-redux'
 import chevron from '../../assets/chevron-down-icon.svg'
 import * as employeeAction from '../../features/employee'
@@ -74,10 +74,6 @@ function Dropdown({ label, field, data }) {
             </ListItem>
         )
     })
-
-    useEffect(() => {
-        dispatch(employeeAction.changeField(field, data[0].name))
-    }, [data, dispatch, field])
 
     return (
         <DropdownContainer>
