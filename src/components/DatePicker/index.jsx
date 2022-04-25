@@ -12,13 +12,14 @@ import { changeField } from '../../features/employee'
  * @param {Object} props
  * @param {String} props.name
  * @param {String} props.field
+ * @param {Object} props._ref
+ * @param {RegExp} props.pattern
  * @param {String} props.children
  * @returns
  */
 
-function DatePicker({ name, field, children }) {
+function DatePicker({ name, field, _ref, pattern, children }) {
     const [showDatePicker, setShowDatePicker] = useState(false)
-    const inputRef = useRef()
     const datePickerRef = useRef()
     const date = new Date()
     const [selectedYear, setSelectedYear] = useState(date.getFullYear())
@@ -31,7 +32,7 @@ function DatePicker({ name, field, children }) {
     }
 
     const handleChange = () => {
-        dispatch(changeField(field, inputRef.current.value))
+        dispatch(changeField(field, _ref.current.value))
     }
 
     const handleKeyDown = (e) => {
@@ -68,9 +69,10 @@ function DatePicker({ name, field, children }) {
                 type="text"
                 name={name}
                 id={name}
-                ref={inputRef}
+                ref={_ref}
                 onChange={handleChange}
                 required
+                pattern={pattern}
             />
             {showDatePicker && (
                 <DatePickerContainer>
@@ -83,7 +85,7 @@ function DatePicker({ name, field, children }) {
                     <DatePickerBody
                         selectedMonth={selectedMonth}
                         selectedYear={selectedYear}
-                        inputRef={inputRef}
+                        inputRef={_ref}
                         setShowDatePicker={setShowDatePicker}
                         monthDays={monthDays}
                         field={field}
@@ -97,6 +99,8 @@ function DatePicker({ name, field, children }) {
 DatePicker.propTypes = {
     field: PropTypes.string,
     name: PropTypes.string,
+    _ref: PropTypes.object,
+    pattern: PropTypes.string,
     children: PropTypes.string,
 }
 

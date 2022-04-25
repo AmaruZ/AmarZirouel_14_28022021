@@ -11,11 +11,12 @@ import { InputContainer, StyledInput, StyledLabel } from './style'
  * @param {String} props.field
  * @param {String} props.children
  * @param {String} props.type
- * @param {Ref} props._ref
+ * @param {Object} props._ref
+ * @param {RegExp} props.pattern
  * @returns
  */
 
-function Input({ name, field, children, type, _ref }) {
+function Input({ name, field, children, type, _ref, pattern }) {
     const dispatch = useDispatch()
 
     const handleChange = (e) => {
@@ -32,6 +33,7 @@ function Input({ name, field, children, type, _ref }) {
                 $width={name === 'street' ? 'long' : 'normal'}
                 ref={_ref}
                 required
+                pattern={pattern}
             />
         </InputContainer>
     )
@@ -43,7 +45,7 @@ Input.propTypes = {
     children: PropTypes.string,
     type: PropTypes.string,
     _ref: PropTypes.object,
-    error: PropTypes.bool,
+    pattern: PropTypes.string,
 }
 
 Input.defaultProps = {
