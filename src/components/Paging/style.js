@@ -3,6 +3,7 @@ import styled from 'styled-components'
 export const PagingContainer = styled.div`
     display: flex;
     justify-content: space-between;
+    margin-bottom: 20px;
 `
 export const PagingNumbersButton = styled.button`
     width: 23px;
