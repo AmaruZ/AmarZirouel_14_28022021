@@ -32,10 +32,11 @@ function DatePickerBody({
         new Date().getTimezoneOffset() * 1000 * 60
 
     const handleClick = (day) => {
+        console.log(selectedMonth, day.month)
         const date =
             day.date < 10 ? '0' + day.date.toString() : day.date.toString()
         const month =
-            selectedMonth === 0
+            selectedMonth + day.month === -1
                 ? '12'
                 : selectedMonth + 1 + day.month < 10
                 ? '0' + (selectedMonth + 1 + day.month).toString()
