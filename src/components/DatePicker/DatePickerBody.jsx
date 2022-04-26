@@ -44,7 +44,7 @@ function DatePickerBody({
                 ? '01'
                 : (selectedMonth + 1 + day.month).toString()
         const year =
-            selectedMonth === 0
+            selectedMonth + day.month === -1
                 ? selectedYear - 1
                 : selectedMonth + 1 + day.month === 13
                 ? selectedYear + 1
